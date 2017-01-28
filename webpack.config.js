@@ -1,16 +1,19 @@
-var webpack = require("webpack");
+var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-
-
 module.exports = {
-    entry: {
-        app: './js/main.js',
-        vendor: ["jquery", "bootstrap"]
-    },
+    //app: ['webpack/hot/dev-server', './src/js/index.js'],
+    entry: './src/js/index.js',
+    vendor: ["jquery", "bootstrap"],
     output: {
-        path: './build/',
-        publicPath: './build/',
-        filename: "bundle.js"
+        path: './dist/js',
+        filename: 'bundle.js',
+        publicPath: '/assets/'
+    },
+    devServer: {
+        inline: true,
+        hot: true,
+        contentBase: './dist',
+        port: 3005
     },
     module: {
         loaders: [
@@ -39,6 +42,8 @@ module.exports = {
             jQuery: "jquery",
             "window.jQuery": "jquery"
         }),
+        new webpack.HotModuleReplacementPlugin(), //开启热替换插件
+        new webpack.NoErrorsPlugin(),
         new ExtractTextPlugin("[name].css")
     ]
 }
